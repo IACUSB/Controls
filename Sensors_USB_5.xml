@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dds xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="http://community.rti.com/schema/6.0.0/rti_dds_profiles.xsd" version="6.0.0">
+
+  <!-- Qos Library -->
+  <qos_library name="QosLibrary">
+    <qos_profile name="DefaultProfile" base_name="BuiltinQosLibExp::Generic.StrictReliable" is_default_qos="true">
+      <participant_qos>
+        <transport_builtin>
+          <mask>UDPV4 | SHMEM</mask>
+        </transport_builtin>
+      </participant_qos>
+    </qos_profile>
+  </qos_library>
+
+  <!-- types -->
+  <types>
+    <module name="scade">
+      <struct name="Float64">
+        <member name="data" type="float64"/>
+      </struct>
+    </module>
+    <module name="IndyDS">
+      <struct name="RoadLinePolynom">
+        <member name="lineId" type="int16"/>
+        <member name="c0" type="float64"/>
+        <member name="c1" type="float64"/>
+        <member name="c2" type="float64"/>
+        <member name="c3" type="float64"/>
+        <member name="curvatureRadius" type="float64"/>
+        <member name="estimatedCurvatureRadius" type="float64"/>
+      </struct>
+      <struct name="RoadLinesPolynoms">
+        <member name="egoVhlId" type="int16"/>
+        <member name="globalId" type="int32"/>
+        <member name="isNoisy" type="octet"/>
+        <member name="referenceFrame" type="int16"/>
+        <member name="roadLinesPolynomsArray" sequenceMaxLength="3" type="nonBasic" nonBasicTypeName="IndyDS::RoadLinePolynom"/>
+        <member name="timeOfUpdate" type="float64"/>
+      </struct>
+      <struct name="SensorTargetBBox">
+        <member name="id" type="int16"/>
+        <member name="referenceFrame" type="int16"/>
+        <member name="rearBottomRightX" type="float64"/>
+        <member name="rearBottomRightY" type="float64"/>
+        <member name="rearBottomRightZ" type="float64"/>
+        <member name="rearTopRightX" type="float64"/>
+        <member name="rearTopRightY" type="float64"/>
+        <member name="rearTopRightZ" type="float64"/>
+        <member name="rearbottomLeftX" type="float64"/>
+        <member name="rearbottomLeftY" type="float64"/>
+        <member name="rearbottomLeftZ" type="float64"/>
+        <member name="rearTopLeftX" type="float64"/>
+        <member name="rearTopLeftY" type="float64"/>
+        <member name="rearTopLeftZ" type="float64"/>
+        <member name="frontBottomRightX" type="float64"/>
+        <member name="frontBottomRightY" type="float64"/>
+        <member name="frontBottomRightZ" type="float64"/>
+        <member name="frontTopRightX" type="float64"/>
+        <member name="frontTopRightY" type="float64"/>
+        <member name="frontTopRightZ" type="float64"/>
+        <member name="frontbottomLeftX" type="float64"/>
+        <member name="frontbottomLeftY" type="float64"/>
+        <member name="frontbottomLeftZ" type="float64"/>
+        <member name="frontTopLeftX" type="float64"/>
+        <member name="frontTopLeftY" type="float64"/>
+        <member name="frontTopLeftZ" type="float64"/>
+      </struct>
+      <struct name="SensorMovableTargetsBoundingBoxes">
+        <member name="boundingBoxesArray" sequenceMaxLength="30" type="nonBasic" nonBasicTypeName="IndyDS::SensorTargetBBox"/>
+        <member name="globalId" type="int32"/>
+        <member name="timeOfUpdate" type="float64"/>
+        <member name="vhlId" type="int16"/>
+      </struct>
+      <struct name="GPS">
+        <member name="altitude" type="float64"/>
+        <member name="globalId" type="int32"/>
+        <member name="hdop" type="float32"/>
+        <member name="lastUpdate" type="float64"/>
+        <member name="latitude" type="float64"/>
+        <member name="longitude" type="float64"/>
+        <member name="satellites" type="int16"/>
+        <member name="sensorId" type="int16"/>
+        <member name="vhlId" type="int16"/>
+      </struct>
+      <struct name="LaserMeterPoint">
+        <member name="hit" type="octet"/>
+        <member name="Hangle" type="float32"/>
+        <member name="Vangle" type="float32"/>
+        <member name="absposx" type="float64"/>
+        <member name="absposy" type="float64"/>
+        <member name="absposz" type="float64"/>
+        <member name="relposx" type="float32"/>
+        <member name="relposy" type="float32"/>
+        <member name="relposz" type="float32"/>
+        <member name="distance" type="float32"/>
+      </struct>
+      <struct name="LaserMeter">
+        <member name="frameCount" type="int16"/>
+        <member name="globalId" type="int32"/>
+        <member name="lastUpdate" type="float64"/>
+        <member name="nearestPoint" type="int16"/>
+        <member name="resultArray" sequenceMaxLength="720" type="nonBasic" nonBasicTypeName="IndyDS::LaserMeterPoint"/>
+        <member name="sensorId" type="int16"/>
+        <member name="vhlId" type="int16"/>
+      </struct>
+      <struct name="SensorMovableTarget">
+        <member name="id" type="int16"/>
+        <member name="scanerId" type="int16"/>
+        <member name="detectionStatus" type="int16"/>
+        <member name="type_" type="int16"/>
+        <member name="beamIndex" type="int16"/>
+        <member name="existenceTime" type="float64"/>
+        <member name="anchorPoint" type="int16"/>
+        <member name="referenceFrame" type="int16"/>
+        <member name="posXInChosenRef" type="float64"/>
+        <member name="posYInChosenRef" type="float64"/>
+        <member name="posZInChosenRef" type="float64"/>
+        <member name="posHeadingInChosenRef" type="float32"/>
+        <member name="posPitchInChosenRef" type="float32"/>
+        <member name="posRollInChosenRef" type="float32"/>
+        <member name="distanceToCollision" type="float32"/>
+        <member name="azimuthInSensor" type="float32"/>
+        <member name="elevationInSensor" type="float32"/>
+        <member name="azimuthInVehicle" type="float32"/>
+        <member name="elevationInVehicle" type="float32"/>
+        <member name="absoluteSpeedX" type="float32"/>
+        <member name="absoluteSpeedY" type="float32"/>
+        <member name="absoluteSpeedZ" type="float32"/>
+        <member name="absoluteAngularSpeedH" type="float32"/>
+        <member name="absoluteAngularSpeedP" type="float32"/>
+        <member name="absoluteAngularSpeedR" type="float32"/>
+        <member name="relativeSpeedX" type="float32"/>
+        <member name="relativeSpeedY" type="float32"/>
+        <member name="relativeSpeedZ" type="float32"/>
+        <member name="relativeAngularSpeedH" type="float32"/>
+        <member name="relativeAngularSpeedP" type="float32"/>
+        <member name="relativeAngularSpeedR" type="float32"/>
+        <member name="absoluteAccelX" type="float32"/>
+        <member name="absoluteAccelY" type="float32"/>
+        <member name="absoluteAccelZ" type="float32"/>
+        <member name="relativeAccelX" type="float32"/>
+        <member name="relativeAccelY" type="float32"/>
+        <member name="relativeAccelZ" type="float32"/>
+        <member name="length" type="float32"/>
+        <member name="width" type="float32"/>
+        <member name="height" type="float32"/>
+        <member name="visibility" type="float32"/>
+      </struct>
+      <struct name="SensorMovableTargets">
+        <member name="egoVhlId" type="int16"/>
+        <member name="globalId" type="int32"/>
+        <member name="nearestTarget" type="int16"/>
+        <member name="targetsArray" sequenceMaxLength="30" type="nonBasic" nonBasicTypeName="IndyDS::SensorMovableTarget"/>
+        <member name="timeOfUpdate" type="float64"/>
+      </struct>
+      <struct name="CabToModelCorrective">
+        <member name="AcceleratorAdditive" type="float64"/>
+        <member name="AcceleratorMultiplicative" type="float64"/>
+        <member name="BrakeAdditive" type="float64"/>
+        <member name="BrakeMultiplicative" type="float64"/>
+        <member name="ClutchAdditive" type="float64"/>
+        <member name="ClutchMultiplicative" type="float64"/>
+        <member name="GearboxAutoMode" type="int16"/>
+        <member name="GearboxTakeOver" type="octet"/>
+        <member name="IsRatioLimit" type="octet"/>
+        <member name="MaxRatio" type="int16"/>
+        <member name="MinRatio" type="int16"/>
+        <member name="ParkingBrakeAdditive" type="float64"/>
+        <member name="ParkingBrakeMultiplicative" type="float64"/>
+        <member name="ShiftDown" type="octet"/>
+        <member name="ShiftUp" type="octet"/>
+        <member name="TimeOfUpdate" type="float64"/>
+        <member name="WantedGear" type="int16"/>
+      </struct>
+      <struct name="CabToSteeringCorrective">
+        <member name="AdditiveSteeringWheelAccel" type="float64"/>
+        <member name="AdditiveSteeringWheelAngle" type="float64"/>
+        <member name="AdditiveSteeringWheelSpeed" type="float64"/>
+        <member name="AdditiveSteeringWheelTorque" type="float64"/>
+        <member name="MultiplicativeSteeringWheelAccel" type="float64"/>
+        <member name="MultiplicativeSteeringWheelAngle" type="float64"/>
+        <member name="MultiplicativeSteeringWheelSpeed" type="float64"/>
+        <member name="MultiplicativeSteeringWheelTorque" type="float64"/>
+        <member name="TimeOfUpdate" type="float64"/>
+      </struct>
+      <struct name="VehicleOutput">
+        <member name="CustomOutput" arrayDimensions="512" type="float64"/>
+        <member name="EngineSpeed" type="float64"/>
+        <member name="EngineState" type="octet"/>
+        <member name="GearBoxMode" type="int32"/>
+        <member name="GearEngaged" type="int32"/>
+        <member name="GroundIndex" arrayDimensions="4" type="int32"/>
+        <member name="LSR" arrayDimensions="4" type="float64"/>
+        <member name="SteeringWheelAccel" type="float64"/>
+        <member name="SteeringWheelAngle" type="float64"/>
+        <member name="SteeringWheelSpeed" type="float64"/>
+        <member name="SteeringWheelTorque" type="float64"/>
+        <member name="TimeOfUpdate" type="float64"/>
+        <member name="TraveledDistance" type="float64"/>
+        <member name="absIsActive" arrayDimensions="4" type="octet"/>
+        <member name="auxiliaryLights" type="int32"/>
+        <member name="brakePedal" type="float64"/>
+        <member name="brakeRetarderNotch" type="float64"/>
+        <member name="brakeTemperature" arrayDimensions="4" type="float64"/>
+        <member name="cdgAccel_heading" type="float64"/>
+        <member name="cdgAccel_pitch" type="float64"/>
+        <member name="cdgAccel_roll" type="float64"/>
+        <member name="cdgAccel_x" type="float64"/>
+        <member name="cdgAccel_y" type="float64"/>
+        <member name="cdgAccel_z" type="float64"/>
+        <member name="cdgPos_heading" type="float64"/>
+        <member name="cdgPos_pitch" type="float64"/>
+        <member name="cdgPos_roll" type="float64"/>
+        <member name="cdgPos_x" type="float64"/>
+        <member name="cdgPos_y" type="float64"/>
+        <member name="cdgPos_z" type="float64"/>
+        <member name="cdgSpeed_heading" type="float64"/>
+        <member name="cdgSpeed_pitch" type="float64"/>
+        <member name="cdgSpeed_roll" type="float64"/>
+        <member name="cdgSpeed_x" type="float64"/>
+        <member name="cdgSpeed_y" type="float64"/>
+        <member name="cdgSpeed_z" type="float64"/>
+        <member name="clutchPedal" type="float64"/>
+        <member name="consumption" type="float64"/>
+        <member name="contactPoint_x" arrayDimensions="4" type="float64"/>
+        <member name="contactPoint_y" arrayDimensions="4" type="float64"/>
+        <member name="contactPoint_z" arrayDimensions="4" type="float64"/>
+        <member name="effectiveIgnitionKeyPosition" type="int32"/>
+        <member name="forceLockup" type="octet"/>
+        <member name="gasPedal" type="float64"/>
+        <member name="grip" arrayDimensions="4" type="float64"/>
+        <member name="groundNormal_x" arrayDimensions="4" type="float64"/>
+        <member name="groundNormal_y" arrayDimensions="4" type="float64"/>
+        <member name="groundNormal_z" arrayDimensions="4" type="float64"/>
+        <member name="groundType" arrayDimensions="4" type="int32"/>
+        <member name="handBrake" type="float64"/>
+        <member name="hubPosition_heading" arrayDimensions="4" type="float64"/>
+        <member name="hubPosition_pitch" arrayDimensions="4" type="float64"/>
+        <member name="hubPosition_roll" arrayDimensions="4" type="float64"/>
+        <member name="hubPosition_x" arrayDimensions="4" type="float64"/>
+        <member name="hubPosition_y" arrayDimensions="4" type="float64"/>
+        <member name="hubPosition_z" arrayDimensions="4" type="float64"/>
+        <member name="isEngineRetarder" type="octet"/>
+        <member name="isInContact" arrayDimensions="4" type="octet"/>
+        <member name="laneType" arrayDimensions="4" type="int32"/>
+        <member name="lights" type="int32"/>
+        <member name="lockDiffMode" type="int32"/>
+        <member name="plowMode" type="int32"/>
+        <member name="pollution" type="float64"/>
+        <member name="roughnessHeight" arrayDimensions="4" type="float64"/>
+        <member name="roughnessHeightStdDeviation" arrayDimensions="4" type="float64"/>
+        <member name="roughnessLength" arrayDimensions="4" type="float64"/>
+        <member name="roughnessLengthStdDeviation" arrayDimensions="4" type="float64"/>
+        <member name="sirens" type="int32"/>
+        <member name="slipAngle" arrayDimensions="4" type="float64"/>
+        <member name="tireForce_x" arrayDimensions="4" type="float64"/>
+        <member name="tireForce_y" arrayDimensions="4" type="float64"/>
+        <member name="tireForce_z" arrayDimensions="4" type="float64"/>
+        <member name="trailerBrake" type="float64"/>
+        <member name="transferChoice" type="int32"/>
+        <member name="waterHeight" arrayDimensions="4" type="float64"/>
+        <member name="wheelRotation" arrayDimensions="4" type="float64"/>
+        <member name="wheelRotationSpeed" arrayDimensions="4" type="float64"/>
+      </struct>
+    </module>
+	<module name="DDS">
+	  <struct name="Octets">
+	    <member name="value" sequenceMaxLength="2048" type="byte"/>
+	  </struct>
+	</module>
+  </types>
+
+  <!-- Domain Library -->
+  <domain_library name="VRX">
+    <domain name="DS" domain_id="31">
+      <!-- Register the data types and topic names here -->
+      <register_type name="Float64" type_ref="scade::Float64"/>
+      <!--register_type name="RoadLinePolynom" type_ref="IndyDS::RoadLinePolynom"/-->
+      <register_type name="RoadLinesPolynoms" type_ref="IndyDS::RoadLinesPolynoms"/>
+      <register_type name="SensorMovableTargetsBoundingBoxes" type_ref="IndyDS::SensorMovableTargetsBoundingBoxes"/>
+      <register_type name="GPS" type_ref="IndyDS::GPS"/>
+      <register_type name="LaserMeter" type_ref="IndyDS::LaserMeter"/>
+      <register_type name="SensorMovableTargets" type_ref="IndyDS::SensorMovableTargets"/>
+      <register_type name="CabToModelCorrective" type_ref="IndyDS::CabToModelCorrective"/>
+      <register_type name="CabToSteeringCorrective" type_ref="IndyDS::CabToSteeringCorrective"/>
+      <register_type name="VehicleOutput" type_ref="IndyDS::VehicleOutput"/>
+	  <!-- not generated, added manually -->
+	  <register_type name="DDSOctets" type_ref="DDS::Octets"/>
+	  <topic name="dds_done_reply1" register_type_ref="DDSOctets"/>
+	  <topic name="dds_done1" register_type_ref="DDSOctets"/>
+	  <!-- end -->
+      <topic name="SteeringWheelCmd_DDSE1" register_type_ref="Float64"/>
+      <topic name="TargetSpeedFromScadeSim_DDSE1" register_type_ref="Float64"/>
+      <topic name="cameraRoadLinesPolynoms_F1_ego1" register_type_ref="RoadLinesPolynoms"/>
+      <topic name="cameraRoadLinesPolynoms_F2_ego1" register_type_ref="RoadLinesPolynoms"/>
+      <topic name="cameraRoadLinesPolynoms_FL_ego1" register_type_ref="RoadLinesPolynoms"/>
+      <topic name="cameraRoadLinesPolynoms_FR_ego1" register_type_ref="RoadLinesPolynoms"/>
+      <topic name="cameraRoadLinesPolynoms_RL_ego1" register_type_ref="RoadLinesPolynoms"/>
+      <topic name="cameraRoadLinesPolynoms_RR_ego1" register_type_ref="RoadLinesPolynoms"/>
+      <topic name="cameraSensorMovableTargetsBoundingBoxes_F1_ego1" register_type_ref="SensorMovableTargetsBoundingBoxes"/>
+      <topic name="cameraSensorMovableTargetsBoundingBoxes_F2_ego1" register_type_ref="SensorMovableTargetsBoundingBoxes"/>
+      <topic name="cameraSensorMovableTargetsBoundingBoxes_FL_ego1" register_type_ref="SensorMovableTargetsBoundingBoxes"/>
+      <topic name="cameraSensorMovableTargetsBoundingBoxes_FR_ego1" register_type_ref="SensorMovableTargetsBoundingBoxes"/>
+      <topic name="cameraSensorMovableTargetsBoundingBoxes_RL_ego1" register_type_ref="SensorMovableTargetsBoundingBoxes"/>
+      <topic name="cameraSensorMovableTargetsBoundingBoxes_RR_ego1" register_type_ref="SensorMovableTargetsBoundingBoxes"/>
+      <topic name="gpsGPS_ego1" register_type_ref="GPS"/>
+      <topic name="lidarLaserMeter_FlashA_ego1" register_type_ref="LaserMeter"/>
+      <topic name="lidarLaserMeter_FlashB_ego1" register_type_ref="LaserMeter"/>
+      <topic name="lidarLaserMeter_FlashC_ego1" register_type_ref="LaserMeter"/>
+      <topic name="radarSensorMovableTargets_F_ego1" register_type_ref="SensorMovableTargets"/>
+      <topic name="radarSensorMovableTargets_Port_ego1" register_type_ref="SensorMovableTargets"/>
+      <topic name="radarSensorMovableTargets_R_ego1" register_type_ref="SensorMovableTargets"/>
+      <topic name="radarSensorMovableTargets_Stbd_ego1" register_type_ref="SensorMovableTargets"/>
+      <topic name="toVehicleCabToModelCorrective_ego1" register_type_ref="CabToModelCorrective"/>
+      <topic name="toVehicleSteeringCorrective_ego1" register_type_ref="CabToSteeringCorrective"/>
+      <topic name="vehicleStateVehicleOutput_ego1" register_type_ref="VehicleOutput"/>
+      <!--topic name="cameraRoadLinePolynom_F1_ego1" register_type_ref="RoadLinePolynom"/-->
+
+    </domain>
+  </domain_library>
+
+  <!-- Participant library -->
+  <domain_participant_library name="SCADE_DS_Controller">
+    <domain_participant name="Controller" domain_ref="VRX::DS">
+      <publisher name="toVehicleCabToModelCorrectivePub">
+        <data_writer name="toVehicleCabToModelCorrectiveWriter" topic_ref="toVehicleCabToModelCorrective_ego1" />
+      </publisher>
+
+      <publisher name="toVehicleSteeringCorrectivePub">
+        <data_writer name="toVehicleSteeringCorrectiveWriter" topic_ref="toVehicleSteeringCorrective_ego1" />
+      </publisher>
+
+      <subscriber name="vehicleStateVehicleOutputSub">
+        <data_reader name="vehicleStateVehicleOutputReader" topic_ref="vehicleStateVehicleOutput_ego1" />
+      </subscriber>
+
+      <subscriber name="CameraRoadLinesPolinoms_Ego1_F1Sub">
+        <data_reader name="CameraRoadLinesPolinoms_Ego1_F1Reader" topic_ref="cameraRoadLinesPolynoms_F1_ego1" />
+      </subscriber>
+
+      <subscriber name="CameraRoadLinesPolinoms_Ego1_F2Sub">
+        <data_reader name="CameraRoadLinesPolinoms_Ego1_F2Reader" topic_ref="cameraRoadLinesPolynoms_F2_ego1" />
+      </subscriber>
+
+
+      <!-->subscriber name="CameraRoadLinePolinom_Ego1_F1Sub">
+        <data_reader name="CameraRoadLinePolinom_Ego1_F1Reader" topic_ref="cameraRoadLinePolynom_F1_ego1" />
+      </subscriber-->
+
+
+      <publisher name="DDSDonePub">
+		<data_writer name="DDSDoneWriter" topic_ref="dds_done_reply1" />
+	  </publisher>  
+		
+	  <subscriber name="DDSDoneSub">
+		<data_reader name="DDSDoneReader" topic_ref="dds_done1" />
+	  </subscriber>	
+    </domain_participant>
+  </domain_participant_library>
+</dds>
